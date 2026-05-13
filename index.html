@@ -4,660 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAYA CORE • Operating System for One</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
-        
-        :root {
-            --primary: #00f5ff;
-        }
-        
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
-        
-        .font-display {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-weight: 600;
-        }
-
-        .glass {
-            background: rgba(10, 10, 15, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .neon-text {
-            text-shadow: 0 0 10px #00f5ff,
-                        0 0 20px #00f5ff;
-        }
-
-        .section-header {
-            font-size: 3.5rem;
-            line-height: 1.05;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-        }
-
-        .product-card {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-12px) scale(1.01);
-            box-shadow: 0 25px 50px -12px rgb(0 245 255 / 0.15);
-        }
-
-        .terminal {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        }
-
-        .metric-value {
-            font-variant-numeric: tabular-nums;
-        }
-
-        .nav-active {
-            color: #00f5ff;
-            position: relative;
-        }
-        
-        .nav-active:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, #00f5ff, transparent);
-        }
-
-        .scroll-indicator {
-            animation: bounce 2s infinite;
-        }
-
-        .stat-number {
-            font-feature-settings: "ss02";
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #00f5ff, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
 </head>
-<body class="bg-zinc-950 text-zinc-200 overflow-x-hidden">
+<body>
     <!-- NAV -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-white rounded-xl flex items-center justify-center">
-                    <span class="text-zinc-950 font-bold text-3xl tracking-tighter">K</span>
-                </div>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">K</div>
                 <div>
-                    <div class="font-display text-2xl tracking-tighter font-semibold">KAYA CORE</div>
-                    <div class="text-[10px] text-zinc-500 -mt-1">OPERATING SYSTEM v26.05</div>
+                    <div class="brand-name">KAYA CORE</div>
+                    <div class="brand-version">OPERATING SYSTEM v26.05</div>
                 </div>
             </div>
             
-            <div class="hidden md:flex items-center gap-x-10 text-sm">
-                <a href="#products" class="hover:text-white transition-colors">Products</a>
-                <a href="#work" class="hover:text-white transition-colors">Client Work</a>
-                <a href="#founder" class="hover:text-white transition-colors">Founder</a>
-                <a href="#thesis" class="hover:text-white transition-colors">Thesis</a>
+            <div class="nav-links">
+                <a href="#products">Products</a>
+                <a href="#work">Client Work</a>
+                <a href="#founder">Founder</a>
+                <a href="#thesis">Thesis</a>
             </div>
             
-            <div class="flex items-center gap-x-4">
-                <a href="https://github.com/KayaCihat" target="_blank" 
-                   class="px-5 py-2.5 text-sm flex items-center gap-x-2 hover:bg-white/5 rounded-2xl transition-all border border-white/20">
+            <div class="nav-actions">
+                <a href="https://github.com/KayaCihat" target="_blank" class="btn btn-ghost">
                     <i class="fab fa-github"></i>
-                    <span class="hidden md:inline">GitHub</span>
+                    <span class="hidden-mobile">GitHub</span>
                 </a>
-                <button onclick="bootOS()" 
-                        class="px-6 py-2.5 bg-white text-zinc-950 text-sm font-semibold rounded-2xl flex items-center gap-x-2 hover:bg-zinc-200 transition-all active:scale-[0.985]">
+                <button onclick="bootOS()" class="btn btn-primary">
                     <i class="fas fa-power-off"></i>
                     <span>Boot OS</span>
                 </button>
             </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
     <!-- HERO -->
-    <div class="min-h-screen flex items-center pt-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(#27272a_1px,transparent_1px)] bg-[length:4px_4px]"></div>
-        
-        <div class="max-w-5xl mx-auto px-8 relative z-10">
-            <div class="max-w-4xl">
-                <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-8">
-                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    <span class="text-xs tracking-[3px] font-mono text-emerald-400">ONE PERSON. INFINITE OUTPUT.</span>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">
+                <div class="status-dot"></div>
+                <span>ONE PERSON. INFINITE OUTPUT.</span>
+            </div>
+            
+            <h1 class="hero-title">
+                THE<br>OPERATING<br>SYSTEM<br>
+                <span class="gradient-text">FOR ONE.</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                Kaya Core is the proof that one person with taste, edge infrastructure, and real AI can ship what teams of 50 cannot.
+            </p>
+            
+            <div class="hero-actions">
+                <button onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })" class="btn btn-primary btn-large">
+                    EXPLORE THE OS
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <button onclick="bootOS()" class="btn btn-ghost btn-large">
+                    <i class="fas fa-terminal"></i>
+                    <span>Boot in Terminal</span>
+                </button>
+            </div>
+            
+            <div class="hero-footer">
+                <div class="flex -space-x-2">
+                    <div class="avatar">🇳🇱</div>
+                    <div class="avatar">🧠</div>
+                    <div class="avatar">⚡</div>
                 </div>
-                
-                <h1 class="text-[92px] md:text-[120px] leading-[0.92] font-display tracking-tighter font-bold">
-                    THE<br>OPERATING<br>SYSTEM<br>
-                    <span class="gradient-text">FOR ONE.</span>
-                </h1>
-                
-                <p class="max-w-md mt-8 text-2xl text-zinc-400">
-                    Kaya Core is the proof that one person with taste, edge infrastructure, and real AI can ship what teams of 50 cannot.
-                </p>
-                
-                <div class="flex items-center gap-x-4 mt-12">
-                    <button onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })" 
-                            class="px-9 py-4 bg-white text-zinc-950 font-semibold rounded-3xl flex items-center gap-x-3 text-lg hover:bg-zinc-100 transition-all group">
-                        EXPLORE THE OS
-                        <i class="fas fa-arrow-right group-active:translate-x-1 transition"></i>
-                    </button>
-                    
-                    <button onclick="bootOS()" 
-                            class="px-8 py-4 border border-white/30 hover:bg-white/5 rounded-3xl flex items-center gap-x-3 text-lg transition-all">
-                        <i class="fas fa-terminal"></i>
-                        <span>Boot in Terminal</span>
-                    </button>
-                </div>
-                
-                <div class="mt-16 flex items-center gap-x-8 text-sm text-zinc-500">
-                    <div class="flex -space-x-3">
-                        <div class="w-8 h-8 bg-zinc-800 rounded-full border-2 border-zinc-950 flex items-center justify-center text-xs">🇳🇱</div>
-                        <div class="w-8 h-8 bg-zinc-800 rounded-full border-2 border-zinc-950 flex items-center justify-center text-xs">🧠</div>
-                        <div class="w-8 h-8 bg-zinc-800 rounded-full border-2 border-zinc-950 flex items-center justify-center text-xs">⚡</div>
-                    </div>
-                    <div>Built in Amsterdam • Shipped from the edge</div>
-                </div>
+                <span>Built in Amsterdam • Shipped from the edge</span>
             </div>
         </div>
         
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center">
-            <div class="text-[10px] tracking-[2px] text-zinc-500 mb-2">SCROLL TO BOOT</div>
-            <div class="scroll-indicator">
-                <i class="fas fa-chevron-down text-xl"></i>
-            </div>
+        <div class="scroll-hint">
+            <div>SCROLL TO BOOT</div>
+            <i class="fas fa-chevron-down"></i>
         </div>
-    </div>
+    </section>
 
     <!-- THESIS -->
-    <div id="thesis" class="max-w-4xl mx-auto px-8 py-24 border-t border-white/10">
-        <div class="max-w-2xl">
-            <div class="uppercase tracking-[3px] text-xs text-zinc-500 mb-4">THE THESIS</div>
-            <h2 class="text-6xl leading-none font-display tracking-tight">
-                Most companies need a team of fifty.<br>
-                <span class="text-white">One person is enough.</span>
-            </h2>
-            
-            <div class="mt-10 text-xl text-zinc-400 leading-relaxed">
-                With the right stack, real AI that actually works, and zero tolerance for mediocrity, 
-                one person can design, build, and ship products that feel like they were made by a team of experts.
-            </div>
-            
-            <div class="mt-8 flex items-center gap-x-4 text-sm">
-                <div class="px-4 py-2 bg-white/5 rounded-2xl flex items-center gap-x-2">
-                    <i class="fas fa-globe text-emerald-400"></i>
-                    <span>Edge-first infrastructure</span>
-                </div>
-                <div class="px-4 py-2 bg-white/5 rounded-2xl flex items-center gap-x-2">
-                    <i class="fas fa-robot text-violet-400"></i>
-                    <span>AI-native by design</span>
+    <section id="thesis" class="section">
+        <div class="container">
+            <div class="thesis-content">
+                <div class="section-label">THE THESIS</div>
+                <h2 class="section-title">Most companies need a team of fifty.<br><span>One person is enough.</span></h2>
+                
+                <p class="thesis-text">
+                    With the right stack, real AI that actually works, and zero tolerance for mediocrity, 
+                    one person can design, build, and ship products that feel like they were made by a team of experts.
+                </p>
+                
+                <div class="thesis-badges">
+                    <div class="badge-small"><i class="fas fa-globe"></i> Edge-first infrastructure</div>
+                    <div class="badge-small"><i class="fas fa-robot"></i> AI-native by design</div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- PRODUCTS -->
-    <div id="products" class="max-w-7xl mx-auto px-8 py-16">
-        <div class="flex items-end justify-between mb-12">
-            <div>
-                <div class="uppercase tracking-[3px] text-xs text-zinc-500">THE OS IN ACTION</div>
-                <h3 class="text-6xl font-display tracking-tighter">Live Products</h3>
+    <section id="products" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <div class="section-label">THE OS IN ACTION</div>
+                    <h3 class="section-title">Live Products</h3>
+                </div>
+                <div class="section-stats">
+                    <div class="stat">6 LIVE • 1 LAUNCHING</div>
+                    <div class="stat-sub">All built by 1 person</div>
+                </div>
             </div>
-            <div class="text-right hidden md:block">
-                <div class="text-emerald-400 text-sm">6 LIVE • 1 LAUNCHING</div>
-                <div class="text-xs text-zinc-500">All built by 1 person</div>
+            
+            <div class="products-grid">
+                <!-- Populated by script.js -->
             </div>
         </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <!-- Xcelerate -->
-            <div class="product-card glass rounded-3xl p-8 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center gap-x-3">
-                            <div class="text-3xl">⚡</div>
-                            <div>
-                                <div class="font-semibold text-2xl">Xcelerate</div>
-                                <div class="text-emerald-400 text-xs tracking-widest">LIVE • 99.98% UPTIME</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xs text-zinc-500">MARCH 2025</div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-zinc-400">
-                    The fastest AI-native recruiting platform. 
-                    Matches candidates in under 3 seconds using edge RAG.
-                </div>
-                
-                <div class="mt-8 flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-x-1.5">
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">Cloudflare</div>
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">React</div>
-                    </div>
-                    <a href="https://xcelerate.work" target="_blank" 
-                       class="text-xs flex items-center gap-x-1 text-white group-hover:text-[#00f5ff] transition-colors">
-                        VISIT LIVE <i class="fas fa-external-link-alt ml-1.5"></i>
-                    </a>
-                </div>
-                
-                <div class="mt-6 pt-6 border-t border-white/10 flex justify-between text-xs">
-                    <div><span class="font-mono text-emerald-400">12.4k</span> matches today</div>
-                    <div class="text-right"><span class="font-mono">4.2s</span> avg time</div>
-                </div>
-            </div>
-            
-            <!-- Praatbox -->
-            <div class="product-card glass rounded-3xl p-8 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center gap-x-3">
-                            <div class="text-3xl">💬</div>
-                            <div>
-                                <div class="font-semibold text-2xl">Praatbox</div>
-                                <div class="text-emerald-400 text-xs tracking-widest">LIVE</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-zinc-400">
-                    Voice-first AI companion for Dutch professionals. 
-                    Real-time transcription + intelligent follow-ups.
-                </div>
-                
-                <div class="mt-8 flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-x-1.5">
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">Whisper</div>
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">RAG</div>
-                    </div>
-                    <a href="https://praatbox.com" target="_blank" 
-                       class="text-xs flex items-center gap-x-1 text-white group-hover:text-[#00f5ff] transition-colors">
-                        VISIT LIVE <i class="fas fa-external-link-alt ml-1.5"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Boekhoud -->
-            <div class="product-card glass rounded-3xl p-8 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center gap-x-3">
-                            <div class="text-3xl">📊</div>
-                            <div>
-                                <div class="font-semibold text-2xl">Boekhoud Buddies</div>
-                                <div class="text-emerald-400 text-xs tracking-widest">LIVE • €18.4K TODAY</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-zinc-400">
-                    Zero-friction invoicing for Dutch freelancers (ZZP). 
-                    AI that understands Dutch tax rules.
-                </div>
-                
-                <div class="mt-8 flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-x-1.5">
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">Stripe</div>
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">D1</div>
-                    </div>
-                    <a href="https://boekhoudbuddies.com" target="_blank" 
-                       class="text-xs flex items-center gap-x-1 text-white group-hover:text-[#00f5ff] transition-colors">
-                        VISIT LIVE <i class="fas fa-external-link-alt ml-1.5"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- QuickResume -->
-            <div class="product-card glass rounded-3xl p-8 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center gap-x-3">
-                            <div class="text-3xl">📄</div>
-                            <div>
-                                <div class="font-semibold text-2xl">QuickResume</div>
-                                <div class="text-emerald-400 text-xs tracking-widest">LIVE</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-zinc-400">
-                    AI resume builder that actually gets interviews. 
-                    Tailored for the Dutch job market.
-                </div>
-                
-                <div class="mt-8 flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-x-1.5">
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">Grok</div>
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">PDF</div>
-                    </div>
-                    <a href="https://quickresume.cc" target="_blank" 
-                       class="text-xs flex items-center gap-x-1 text-white group-hover:text-[#00f5ff] transition-colors">
-                        VISIT LIVE <i class="fas fa-external-link-alt ml-1.5"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Handlebox -->
-            <div class="product-card glass rounded-3xl p-8 group border border-[#00f5ff]/30">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center gap-x-3">
-                            <div class="text-3xl">📦</div>
-                            <div>
-                                <div class="font-semibold text-2xl">Handlebox</div>
-                                <div class="text-violet-400 text-xs tracking-widest">LAUNCHING SOON</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-zinc-400">
-                    The ultimate client portal for freelancers. 
-                    Contracts, payments, and communication in one place.
-                </div>
-                
-                <div class="mt-8">
-                    <button onclick="requestAccess()" 
-                            class="text-sm px-6 py-2.5 border border-[#00f5ff] text-[#00f5ff] rounded-2xl hover:bg-[#00f5ff] hover:text-zinc-950 transition-all w-full">
-                        REQUEST EARLY ACCESS
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Aether Drift -->
-            <div class="product-card glass rounded-3xl p-8 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center gap-x-3">
-                            <div class="text-3xl">🎵</div>
-                            <div>
-                                <div class="font-semibold text-2xl">Aether Drift</div>
-                                <div class="text-emerald-400 text-xs tracking-widest">LIVE</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-zinc-400">
-                    AI music studio for independent artists. 
-                    Generate, master, and release tracks on-chain.
-                </div>
-                
-                <div class="mt-8 flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-x-1.5">
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">Suno</div>
-                        <div class="px-3 py-1 bg-white/10 text-xs rounded-xl">On-chain</div>
-                    </div>
-                    <a href="https://aetherdriftrecords.com" target="_blank" 
-                       class="text-xs flex items-center gap-x-1 text-white group-hover:text-[#00f5ff] transition-colors">
-                        MINT ON-CHAIN <i class="fas fa-external-link-alt ml-1.5"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <!-- LIVE METRICS -->
-    <div class="max-w-7xl mx-auto px-8 py-16 border-t border-white/10">
-        <div class="glass rounded-3xl p-12">
-            <div class="text-center mb-12">
-                <div class="text-xs tracking-[3px] text-zinc-500">REAL-TIME FROM THE EDGE</div>
-                <div class="text-4xl font-display tracking-tight mt-3">Kaya Core by the numbers</div>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div class="text-6xl font-display tracking-tighter stat-number">6</div>
-                    <div class="text-sm text-zinc-500 mt-2">Products shipped</div>
+    <section class="section metrics-section">
+        <div class="container">
+            <div class="metrics-card">
+                <div class="metrics-header">
+                    <div class="section-label">REAL-TIME FROM THE EDGE</div>
+                    <h3 class="metrics-title">Kaya Core by the numbers</h3>
                 </div>
-                <div>
-                    <div class="text-6xl font-display tracking-tighter stat-number">142k</div>
-                    <div class="text-sm text-zinc-500 mt-2">Active users</div>
-                </div>
-                <div>
-                    <div class="text-6xl font-display tracking-tighter stat-number">€184k</div>
-                    <div class="text-sm text-zinc-500 mt-2">Revenue this month</div>
-                </div>
-                <div>
-                    <div class="text-6xl font-display tracking-tighter stat-number">99.98</div>
-                    <div class="text-sm text-zinc-500 mt-2">% average uptime</div>
+                
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-value">6</div>
+                        <div class="metric-label">Products shipped</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">142k</div>
+                        <div class="metric-label">Active users</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">€184k</div>
+                        <div class="metric-label">Revenue this month</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">99.98</div>
+                        <div class="metric-label">% average uptime</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- CLIENT WORK -->
-    <div id="work" class="max-w-7xl mx-auto px-8 py-16">
-        <div class="flex items-end justify-between mb-12">
-            <div>
-                <div class="uppercase tracking-[3px] text-xs text-zinc-500">SELECT CLIENT WORK</div>
-                <h3 class="text-6xl font-display tracking-tighter">Built for others</h3>
+    <section id="work" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <div class="section-label">SELECT CLIENT WORK</div>
+                    <h3 class="section-title">Built for others</h3>
+                </div>
+            </div>
+            
+            <div class="clients-grid">
+                <div class="client-card">
+                    <div class="client-name">Glodinas Flexwork</div>
+                    <div class="client-desc">Staffing platform for the Dutch market</div>
+                    <div class="client-status">LIVE →</div>
+                </div>
+                <div class="client-card">
+                    <div class="client-name">Glodinas Finance</div>
+                    <div class="client-desc">Modern financial services site</div>
+                    <div class="client-status">LIVE →</div>
+                </div>
+                <div class="client-card">
+                    <div class="client-name">Glodinas Makelaardij</div>
+                    <div class="client-desc">Real estate platform</div>
+                    <div class="client-status">LIVE →</div>
+                </div>
             </div>
         </div>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="glass rounded-3xl p-8 hover:border-white/30 border border-transparent transition-all">
-                <div class="text-xl font-semibold">Glodinas Flexwork</div>
-                <div class="text-sm text-zinc-500 mt-1">Staffing platform for the Dutch market</div>
-                <div class="mt-8 text-xs text-emerald-400">LIVE →</div>
-            </div>
-            <div class="glass rounded-3xl p-8 hover:border-white/30 border border-transparent transition-all">
-                <div class="text-xl font-semibold">Glodinas Finance</div>
-                <div class="text-sm text-zinc-500 mt-1">Modern financial services site</div>
-                <div class="mt-8 text-xs text-emerald-400">LIVE →</div>
-            </div>
-            <div class="glass rounded-3xl p-8 hover:border-white/30 border border-transparent transition-all">
-                <div class="text-xl font-semibold">Glodinas Makelaardij</div>
-                <div class="text-sm text-zinc-500 mt-1">Real estate platform</div>
-                <div class="mt-8 text-xs text-emerald-400">LIVE →</div>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <!-- FOUNDER -->
-    <div id="founder" class="max-w-5xl mx-auto px-8 py-24 border-t border-white/10">
-        <div class="grid md:grid-cols-5 gap-12 items-center">
-            <div class="md:col-span-3">
-                <div class="uppercase tracking-[3px] text-xs text-zinc-500 mb-4">THE BUILDER</div>
-                <h2 class="text-7xl leading-none font-display tracking-tighter">Cihat Kaya</h2>
-                
-                <div class="mt-8 max-w-md text-xl text-zinc-400">
-                    Solo founder. Edge infrastructure maximalist. 
-                    I believe the best products are built by small teams with extreme taste.
-                </div>
-                
-                <div class="mt-10 flex flex-wrap gap-3">
-                    <div class="px-5 py-2 bg-white/5 rounded-2xl text-sm flex items-center gap-x-2">
-                        <i class="fas fa-map-marker-alt text-red-400"></i> 
-                        <span>Amsterdam, NL</span>
-                    </div>
-                    <div class="px-5 py-2 bg-white/5 rounded-2xl text-sm flex items-center gap-x-2">
-                        <i class="fas fa-child text-amber-400"></i> 
-                        <span>Father to Matteo</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="md:col-span-2 space-y-8 text-sm">
-                <div>
-                    <div class="text-zinc-500 mb-3">CURRENT STACK</div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-1 bg-white/10 rounded-full text-xs">Cloudflare Workers</span>
-                        <span class="px-4 py-1 bg-white/10 rounded-full text-xs">D1 + R2</span>
-                        <span class="px-4 py-1 bg-white/10 rounded-full text-xs">Grok + Claude</span>
-                        <span class="px-4 py-1 bg-white/10 rounded-full text-xs">React + TypeScript</span>
-                        <span class="px-4 py-1 bg-white/10 rounded-full text-xs">FFmpeg WASM</span>
+    <section id="founder" class="section section-dark">
+        <div class="container">
+            <div class="founder-grid">
+                <div class="founder-main">
+                    <div class="section-label">THE BUILDER</div>
+                    <h2 class="founder-name">Cihat Kaya</h2>
+                    
+                    <p class="founder-bio">
+                        Solo founder. Edge infrastructure maximalist. 
+                        I believe the best products are built by small teams with extreme taste.
+                    </p>
+                    
+                    <div class="founder-tags">
+                        <div class="tag"><i class="fas fa-map-marker-alt"></i> Amsterdam, NL</div>
+                        <div class="tag"><i class="fas fa-child"></i> Father to Matteo</div>
                     </div>
                 </div>
                 
-                <div>
-                    <div class="text-zinc-500 mb-3">PHILOSOPHY</div>
-                    <div class="text-zinc-300 leading-relaxed">
-                        "I don't build for scale. I build for delight. 
-                        Everything else follows."
+                <div class="founder-sidebar">
+                    <div>
+                        <div class="sidebar-label">CURRENT STACK</div>
+                        <div class="stack-tags">
+                            <span>Cloudflare Workers</span>
+                            <span>D1 + R2</span>
+                            <span>Grok + Claude</span>
+                            <span>React + TypeScript</span>
+                            <span>FFmpeg WASM</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="sidebar-label">PHILOSOPHY</div>
+                        <p class="philosophy">"I don't build for scale. I build for delight. Everything else follows."</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- FINAL CTA -->
-    <div class="max-w-4xl mx-auto px-8 py-24 text-center border-t border-white/10">
-        <div class="max-w-md mx-auto">
-            <div class="text-5xl font-display tracking-tighter leading-none mb-6">
-                Ready to build<br>something legendary?
-            </div>
-            
-            <p class="text-zinc-400 mb-10">Whether you want to collaborate, invest, or just say hi — I'm always open.</p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:hi@cihatkaya.nl" 
-                   class="px-10 py-4 bg-white text-zinc-950 font-semibold rounded-3xl flex items-center justify-center gap-x-3 hover:bg-zinc-100 transition-all">
-                    <i class="fas fa-envelope"></i>
-                    <span>Say Hello</span>
-                </a>
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to build<br>something legendary?</h2>
+                <p class="cta-subtitle">Whether you want to collaborate, invest, or just say hi — I'm always open.</p>
                 
-                <a href="https://github.com/KayaCihat" target="_blank"
-                   class="px-10 py-4 border border-white/40 hover:bg-white/5 rounded-3xl flex items-center justify-center gap-x-3 transition-all">
-                    <i class="fab fa-github"></i>
-                    <span>View on GitHub</span>
-                </a>
-            </div>
-            
-            <div class="mt-16 text-xs text-zinc-500">
-                © 2026 Kaya Core. Built with obsession in Amsterdam.<br>
-                No templates. No shortcuts. No compromises.
+                <div class="cta-actions">
+                    <a href="mailto:hi@cihatkaya.nl" class="btn btn-primary btn-large">
+                        <i class="fas fa-envelope"></i>
+                        <span>Say Hello</span>
+                    </a>
+                    <a href="https://github.com/KayaCihat" target="_blank" class="btn btn-ghost btn-large">
+                        <i class="fab fa-github"></i>
+                        <span>View on GitHub</span>
+                    </a>
+                </div>
+                
+                <div class="footer-note">
+                    © 2026 Kaya Core. Built with obsession in Amsterdam.<br>
+                    No templates. No shortcuts. No compromises.
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        function tailwindInit() {
-            document.documentElement.style.setProperty('--accent', '#00f5ff');
-        }
-        
-        function bootOS() {
-            const terminal = document.createElement('div');
-            terminal.className = 'fixed inset-0 bg-black z-[100] flex items-center justify-center p-8';
-            terminal.innerHTML = `
-                <div class="max-w-2xl w-full">
-                    <div class="terminal text-emerald-400 text-sm bg-zinc-950 border border-emerald-900 p-8 rounded-3xl">
-                        <div class="flex items-center gap-x-2 mb-6 text-emerald-500">
-                            <div class="w-3 h-3 bg-emerald-500 rounded-full"></div>
-                            <div>KAYA CORE v26.05 — SECURE BOOT</div>
-                        </div>
-                        
-                        <div class="space-y-1 text-emerald-300 font-mono text-xs leading-relaxed">
-                            <div>Initializing edge runtime...</div>
-                            <div class="text-emerald-500">✓ Cloudflare Workers connected</div>
-                            <div class="text-emerald-500">✓ D1 database synced</div>
-                            <div class="text-emerald-500">✓ AI models loaded (Grok + Whisper)</div>
-                            <div class="mt-4">Booting personal operating system...</div>
-                            
-                            <div class="mt-6 text-white">Welcome back, Cihat.</div>
-                            <div class="text-emerald-400">You have 6 products running at 99.98% uptime.</div>
-                            
-                            <div class="mt-8 text-[10px] text-zinc-500">Press any key to exit terminal</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(terminal);
-            
-            setTimeout(() => {
-                terminal.addEventListener('click', () => {
-                    terminal.style.transition = 'opacity 0.3s';
-                    terminal.style.opacity = '0';
-                    setTimeout(() => terminal.remove(), 300);
-                });
-                
-                document.addEventListener('keydown', () => {
-                    terminal.style.transition = 'opacity 0.3s';
-                    terminal.style.opacity = '0';
-                    setTimeout(() => terminal.remove(), 300);
-                }, { once: true });
-            }, 800);
-        }
-        
-        function requestAccess() {
-            const btns = document.querySelectorAll('button');
-            btns.forEach(btn => {
-                if (btn.textContent.includes('REQUEST')) {
-                    btn.innerHTML = `<span class="flex items-center justify-center gap-x-2"><i class="fas fa-check"></i> REQUEST SENT — I'LL REPLY SOON</span>`;
-                    btn.disabled = true;
-                    btn.classList.add('!bg-emerald-500', '!text-white', '!border-emerald-500');
-                }
-            });
-            
-            setTimeout(() => {
-                alert("Thanks! I've received your request. Expect a reply within 24 hours.");
-            }, 1200);
-        }
-        
-        // Tailwind script
-        function initTailwind() {
-            const style = document.createElement('style');
-            style.innerHTML = `
-                .product-card {
-                    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
-                                box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // Boot animation on load
-        window.onload = function() {
-            tailwindInit();
-            initTailwind();
-            
-            // Subtle entrance animation
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach((card, i) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 300 + (i * 80));
-            });
-            
-            // Easter egg: Konami code for fun
-            let konami = '';
-            const secret = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba';
-            document.addEventListener('keydown', function(e) {
-                konami += e.key;
-                if (konami.length > secret.length) konami = konami.slice(1);
-                if (konami === secret) {
-                    document.body.style.transition = 'filter 0.6s';
-                    document.body.style.filter = 'hue-rotate(280deg) saturate(1.8)';
-                    setTimeout(() => {
-                        document.body.style.filter = '';
-                        konami = '';
-                    }, 2400);
-                }
-            });
-        }
-        
-        // Keyboard shortcut hint
-        console.log('%c[ Kaya Core ] Press ↑↑↓↓←→←→ba for a surprise', 'color:#3f3f46');
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
